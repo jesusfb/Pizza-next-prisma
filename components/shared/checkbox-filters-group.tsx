@@ -15,7 +15,7 @@ interface Props {
   searchInputPlaceholder?: string
   onClickCheckbox?: (id: string) => void
   defaultValue?: string[]
-  selectedIds?: Set<string>
+  selectedIngredients?: Set<string>
   name?: string
 }
 
@@ -29,7 +29,7 @@ export const CheckoxFiltersGroup = ({
   onClickCheckbox,
   defaultValue,
   className,
-  selectedIds,
+  selectedIngredients,
   name,
 }: Props) => {
   const [showAll, setShowAll] = useState(false)
@@ -50,7 +50,7 @@ export const CheckoxFiltersGroup = ({
   }
   const list = showAll
     ? items.filter(item => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-    : defaultItems?.slice(0, limit)
+    : (defaultItems ?? items).slice(0, limit)
   return (
     <div className={className}>
       <p className="font-bold mb-5">{title}</p>
@@ -70,7 +70,7 @@ export const CheckoxFiltersGroup = ({
             text={item.text}
             value={item.value}
             endAdornment={item.endAdornment}
-            checked={selectedIds?.has(item.value)}
+            checked={selectedIngredients?.has(item.value)}
             onCheckedChange={() => onClickCheckbox?.(item.value)}
             name={name}
           />
